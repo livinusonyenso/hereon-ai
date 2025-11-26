@@ -51,7 +51,10 @@ export const Card: React.FC<CardProps> = ({
   );
 
   if (variant === 'gradient') {
-    const colors = (gradientColors || [Colors.primary, Colors.primaryDark]) as [string, string, ...string[]];
+    const defaultColors: [string, string] = [Colors.primary, Colors.primaryDark];
+    const colors: [string, string, ...string[]] = gradientColors && gradientColors.length >= 2 
+      ? [gradientColors[0], gradientColors[1], ...gradientColors.slice(2)]
+      : defaultColors;
     
     if (onPress) {
       return (

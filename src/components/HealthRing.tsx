@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { Colors, Typography, getHealthColor } from '../utils/theme';
 
 interface HealthRingProps {
@@ -19,46 +18,39 @@ export const HealthRing: React.FC<HealthRingProps> = ({
   showLabel = true,
   label = 'Health',
 }) => {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const progress = (score / 100) * circumference;
   const healthColor = getHealthColor(score);
 
   return (
     <View style={[styles.container, { width: size, height: size }]}>
-      <Svg width={size} height={size} style={styles.svg}>
-        <Defs>
-          <LinearGradient id="healthGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <Stop offset="0%" stopColor={healthColor} stopOpacity="1" />
-            <Stop offset="100%" stopColor={healthColor} stopOpacity="0.6" />
-          </LinearGradient>
-        </Defs>
-        
-        {/* Background circle */}
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={Colors.backgroundTertiary}
-          strokeWidth={strokeWidth}
-          fill="transparent"
-        />
-        
-        {/* Progress circle */}
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="url(#healthGradient)"
-          strokeWidth={strokeWidth}
-          fill="transparent"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference - progress}
-          strokeLinecap="round"
-          transform={`rotate(-90 ${size / 2} ${size / 2})`}
-        />
-      </Svg>
-      
+      <View 
+        style={[
+          styles.ring, 
+          { 
+            width: size, 
+            height: size, 
+            borderRadius: size / 2,
+            borderWidth: strokeWidth,
+            borderColor: Colors.backgroundTertiary,
+          }
+        ]}
+      />
+      <View 
+        style={[
+          styles.progressRing, 
+          { 
+            width: size, 
+            height: size, 
+            borderRadius: size / 2,
+            borderWidth: strokeWidth,
+            borderColor: healthColor,
+            borderTopColor: healthColor,
+            borderRightColor: score > 25 ? healthColor : 'transparent',
+            borderBottomColor: score > 50 ? healthColor : 'transparent',
+            borderLeftColor: score > 75 ? healthColor : 'transparent',
+            transform: [{ rotate: '-45deg' }],
+          }
+        ]}
+      />
       <View style={styles.centerContent}>
         <Text style={[styles.scoreText, { color: healthColor }]}>
           {Math.round(score)}
@@ -81,35 +73,39 @@ export const MiniHealthRing: React.FC<MiniHealthRingProps> = ({
   size = 44,
 }) => {
   const strokeWidth = 4;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const progress = (score / 100) * circumference;
   const healthColor = getHealthColor(score);
 
   return (
     <View style={[styles.miniContainer, { width: size, height: size }]}>
-      <Svg width={size} height={size}>
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={Colors.backgroundTertiary}
-          strokeWidth={strokeWidth}
-          fill="transparent"
-        />
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={healthColor}
-          strokeWidth={strokeWidth}
-          fill="transparent"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference - progress}
-          strokeLinecap="round"
-          transform={`rotate(-90 ${size / 2} ${size / 2})`}
-        />
-      </Svg>
+      <View 
+        style={[
+          styles.ring, 
+          { 
+            width: size, 
+            height: size, 
+            borderRadius: size / 2,
+            borderWidth: strokeWidth,
+            borderColor: Colors.backgroundTertiary,
+          }
+        ]}
+      />
+      <View 
+        style={[
+          styles.progressRing, 
+          { 
+            width: size, 
+            height: size, 
+            borderRadius: size / 2,
+            borderWidth: strokeWidth,
+            borderColor: healthColor,
+            borderTopColor: healthColor,
+            borderRightColor: score > 25 ? healthColor : 'transparent',
+            borderBottomColor: score > 50 ? healthColor : 'transparent',
+            borderLeftColor: score > 75 ? healthColor : 'transparent',
+            transform: [{ rotate: '-45deg' }],
+          }
+        ]}
+      />
       <View style={styles.miniCenterContent}>
         <Text style={[styles.miniScoreText, { color: healthColor }]}>
           {Math.round(score)}
@@ -124,7 +120,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  svg: {
+  ring: {
+    position: 'absolute',
+  },
+  progressRing: {
     position: 'absolute',
   },
   centerContent: {
@@ -132,11 +131,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scoreText: {
-    ...Typography.statMedium,
+    fontSize: 32,
+    fontWeight: '600',
     color: Colors.text,
   },
   labelText: {
-    ...Typography.caption,
+    fontSize: 11,
     color: Colors.textSecondary,
     marginTop: 2,
   },

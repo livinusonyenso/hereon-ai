@@ -123,22 +123,20 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   };
 
   const updateEquipmentStatus = (equipmentId: string, status: Equipment['status']) => {
-    setEquipment(prev =>
-      prev.map(eq =>
+    setEquipment(prev => {
+      const updatedEquipment = prev.map(eq =>
         eq.id === equipmentId ? { ...eq, status } : eq
-      )
-    );
-
-    // Update dashboard stats
-    const updatedEquipment = equipment.map(eq =>
-      eq.id === equipmentId ? { ...eq, status } : eq
-    );
-    
-    setDashboardStats({
-      ...dashboardStats,
-      operationalEquipment: updatedEquipment.filter(e => e.status === 'operational').length,
-      warningEquipment: updatedEquipment.filter(e => e.status === 'warning').length,
-      criticalEquipment: updatedEquipment.filter(e => e.status === 'critical').length,
+      );
+      
+      // Update dashboard stats with the new equipment state
+      setDashboardStats(currentStats => ({
+        ...currentStats,
+        operationalEquipment: updatedEquipment.filter(e => e.status === 'operational').length,
+        warningEquipment: updatedEquipment.filter(e => e.status === 'warning').length,
+        criticalEquipment: updatedEquipment.filter(e => e.status === 'critical').length,
+      }));
+      
+      return updatedEquipment;
     });
   };
 

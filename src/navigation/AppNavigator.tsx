@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { BlurView } from 'expo-blur';
 
 import {
   DashboardScreen,
@@ -13,7 +12,7 @@ import {
   ServicesScreen,
   AccountScreen,
 } from '../screens';
-import { Colors, BorderRadius } from '../utils/theme';
+import { Colors } from '../utils/theme';
 import { MainTabParamList, RootStackParamList } from '../types';
 import { useApp } from '../context/AppContext';
 
@@ -29,7 +28,7 @@ const TabBarIcon: React.FC<{
   return (
     <View style={styles.iconContainer}>
       <Ionicons name={name} size={24} color={color} />
-      {badge && badge > 0 && (
+      {badge !== undefined && badge > 0 && (
         <View style={styles.badge}>
           <Ionicons name="ellipse" size={8} color={Colors.critical} />
         </View>
@@ -51,17 +50,6 @@ const MainTabs: React.FC = () => {
         tabBarInactiveTintColor: Colors.textSecondary,
         tabBarStyle: styles.tabBar,
         tabBarLabelStyle: styles.tabBarLabel,
-        tabBarBackground: () => (
-          Platform.OS === 'ios' ? (
-            <BlurView
-              intensity={80}
-              tint="dark"
-              style={StyleSheet.absoluteFillObject}
-            />
-          ) : (
-            <View style={[StyleSheet.absoluteFillObject, { backgroundColor: Colors.backgroundSecondary }]} />
-          )
-        ),
       }}
     >
       <Tab.Screen
@@ -144,27 +132,27 @@ const styles = StyleSheet.create({
     paddingBottom: Platform.OS === 'ios' ? 28 : 12,
     borderTopWidth: 0,
     elevation: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.backgroundSecondary,
   },
   tabBarLabel: {
     fontSize: 10,
-    fontWeight: '500',
+    fontWeight: '500' as const,
     marginTop: 4,
   },
   iconContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    position: 'relative' as const,
   },
   activeIndicator: {
-    position: 'absolute',
+    position: 'absolute' as const,
     bottom: -8,
     width: 4,
     height: 4,
     borderRadius: 2,
   },
   badge: {
-    position: 'absolute',
+    position: 'absolute' as const,
     top: -2,
     right: -6,
   },
