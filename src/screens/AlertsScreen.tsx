@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   ViewStyle,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -279,13 +280,14 @@ export const AlertsScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         }
       />
 
-      {/* Emergency Button */}
-      <View style={styles.emergencyContainer}>
-        <TouchableOpacity style={styles.emergencyButton}>
-          <Ionicons name="call" size={24} color={Colors.text} />
-          <Text style={styles.emergencyText}>Emergency Support</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Emergency FAB */}
+      <TouchableOpacity
+        style={styles.emergencyFab}
+        onPress={() => Linking.openURL('whatsapp://send?phone=2348089844699')}
+        activeOpacity={0.8}
+      >
+        <Ionicons name="logo-whatsapp" size={24} color="#FFF" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -540,24 +542,21 @@ const styles = StyleSheet.create({
     marginTop: Spacing.xs,
     textAlign: 'center',
   },
-  emergencyContainer: {
+  emergencyFab: {
     position: 'absolute',
-    bottom: 100,
-    left: Spacing.md,
+    bottom: 110, // Raised to sit above the absolute tab bar
     right: Spacing.md,
-  },
-  emergencyButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: Colors.critical,
-    paddingVertical: Spacing.md,
-    borderRadius: BorderRadius.lg,
-    gap: Spacing.sm,
-  },
-  emergencyText: {
-    ...Typography.body,
-    color: Colors.text,
-    fontWeight: '600',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: Colors.critical,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+    zIndex: 999, // Ensure it's on top
   },
 });
