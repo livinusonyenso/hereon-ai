@@ -299,24 +299,26 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
   filtersContainer: {
-    maxHeight: 44,
     marginBottom: Spacing.md,
-    
+    flexGrow: 0,
+    minHeight: 60,
+    zIndex: 1,
   },
   filtersContent: {
     paddingHorizontal: Spacing.md,
+    paddingVertical: 8,
     gap: Spacing.sm,
   },
   filterChip: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.backgroundSecondary,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: 10,
     borderRadius: BorderRadius.full,
     marginRight: Spacing.sm,
-    gap: Spacing.xs,
-    
+    gap: Spacing.sm,
+    minHeight: 44,
   },
   filterChipActive: {
     backgroundColor: Colors.primary,
@@ -351,6 +353,7 @@ const styles = StyleSheet.create({
   listContent: {
     paddingHorizontal: Spacing.md,
     paddingBottom: 100,
+    paddingTop: Spacing.sm,
   },
   equipmentCard: {
     marginBottom: Spacing.sm,
