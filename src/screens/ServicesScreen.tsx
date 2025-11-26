@@ -465,44 +465,58 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statsContainer: {
-    maxHeight: 100,
-    marginBottom: Spacing.sm,
+    flexGrow: 0,
+    minHeight: 90,
+    marginBottom: Spacing.md,
   },
   statsContent: {
     paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     gap: Spacing.sm,
   },
   statCard: {
-    width: 120,
+    minWidth: 120,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.md,
     marginRight: Spacing.sm,
   },
   statValue: {
     ...Typography.h4,
     color: Colors.text,
+    textAlign: 'center',
   },
   statLabel: {
     ...Typography.caption,
     color: Colors.textSecondary,
     marginTop: 4,
+    textAlign: 'center',
   },
+  // FIXED: Changed from maxHeight: 44 to minHeight: 60 to match EquipmentScreen
   filtersContainer: {
-    maxHeight: 44,
     marginBottom: Spacing.md,
+    flexGrow: 0,
+    minHeight: 60,
+    zIndex: 1,
   },
+  // FIXED: Added paddingVertical: 8 and gap to match EquipmentScreen
   filtersContent: {
     paddingHorizontal: Spacing.md,
+    paddingVertical: 8,
+    gap: Spacing.sm,
   },
+  // FIXED: Added paddingVertical and minHeight to match EquipmentScreen filterChip
   filterChip: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.backgroundSecondary,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: 10,
     borderRadius: BorderRadius.full,
     marginRight: Spacing.sm,
     gap: Spacing.sm,
+    minHeight: 44,
   },
   filterChipActive: {
     backgroundColor: Colors.primary,
