@@ -135,12 +135,19 @@ export interface DashboardStats {
 
 // Navigation Types
 export type RootStackParamList = {
+  Splash: undefined;
+  Auth: undefined;
   Main: undefined;
   EquipmentDetail: { equipmentId: string };
   AlertDetail: { alertId: string };
   ServiceRequestDetail: { requestId: string };
   TopUp: undefined;
   SubscriptionDetail: { subscriptionId: string };
+};
+
+export type AuthStackParamList = {
+  Login: undefined;
+  SignUp: undefined;
 };
 
 export type MainTabParamList = {

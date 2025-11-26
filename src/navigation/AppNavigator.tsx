@@ -11,7 +11,9 @@ import {
   AlertsScreen,
   ServicesScreen,
   AccountScreen,
+  SplashScreen,
 } from '../screens';
+import { AuthNavigator } from './AuthNavigator';
 import { Colors } from '../utils/theme';
 import { MainTabParamList, RootStackParamList } from '../types';
 import { useApp } from '../context/AppContext';
@@ -110,11 +112,14 @@ export const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: Colors.background },
         }}
       >
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Auth" component={AuthNavigator} />
         <Stack.Screen name="Main" component={MainTabs} />
       </Stack.Navigator>
     </NavigationContainer>
