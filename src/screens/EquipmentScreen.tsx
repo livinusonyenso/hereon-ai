@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
   filtersContainer: {
     maxHeight: 44,
     marginBottom: Spacing.md,
+    
   },
   filtersContent: {
     paddingHorizontal: Spacing.md,
@@ -315,6 +316,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.full,
     marginRight: Spacing.sm,
     gap: Spacing.xs,
+    
   },
   filterChipActive: {
     backgroundColor: Colors.primary,
@@ -323,6 +325,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
+   
   },
   filterText: {
     ...Typography.bodySmall,

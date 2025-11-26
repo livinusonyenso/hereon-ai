@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../../utils/theme';
@@ -23,8 +23,11 @@ export const SplashScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Hereon</Text>
-        <Text style={styles.subtitle}>Industrial Asset Management</Text>
+        <Image 
+          source={require('../../../assets/splash-icon.png')} 
+          style={styles.logo}
+          resizeMode="contain"
+        />
         <ActivityIndicator size="large" color={Colors.primary} style={styles.loader} />
       </View>
     </View>
@@ -40,16 +43,11 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
+    width: '100%',
   },
-  title: {
-    fontSize: 42,
-    fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: Colors.textSecondary,
+  logo: {
+    width: 200,
+    height: 200,
     marginBottom: 32,
   },
   loader: {

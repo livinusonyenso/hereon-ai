@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,6 +43,7 @@ const TabBarIcon: React.FC<{
 
 const MainTabs: React.FC = () => {
   const { alerts } = useApp();
+  const insets = useSafeAreaInsets();
   const unreadAlerts = alerts.filter((a) => !a.isRead).length;
 
   return (
@@ -50,7 +52,13 @@ const MainTabs: React.FC = () => {
         headerShown: false,
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textSecondary,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: [
+          styles.tabBar,
+          {
+            height: Platform.OS === 'ios' ? 88 : 60 + insets.bottom,
+            paddingBottom: Platform.OS === 'ios' ? 28 : insets.bottom + 8,
+          },
+        ],
         tabBarLabelStyle: styles.tabBarLabel,
       }}
     >
@@ -132,9 +140,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: Platform.OS === 'ios' ? 88 : 70,
     paddingTop: 8,
-    paddingBottom: Platform.OS === 'ios' ? 28 : 12,
     borderTopWidth: 0,
     elevation: 0,
     backgroundColor: Colors.backgroundSecondary,

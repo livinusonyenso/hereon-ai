@@ -8,6 +8,7 @@ import {
   Modal,
   Dimensions,
   ViewStyle,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -31,6 +32,30 @@ export const AccountScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
       setShowTopUpModal(false);
       setSelectedPackage(null);
     }
+  };
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Log Out',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Log Out',
+          style: 'destructive',
+          onPress: () => {
+            // In a real app, clear tokens here
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Auth' }],
+            });
+          },
+        },
+      ]
+    );
   };
 
   const TransactionItem: React.FC<{ item: Transaction }> = ({ item }) => {
@@ -359,6 +384,16 @@ export const AccountScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
               <Ionicons name="chevron-forward" size={16} color={Colors.textTertiary} />
             </TouchableOpacity>
           </View>
+        </View>
+
+        <View style={styles.section}>
+          <TouchableOpacity 
+            style={styles.logoutButton}
+            onPress={handleLogout}
+          >
+            <Ionicons name="log-out-outline" size={20} color={Colors.critical} />
+            <Text style={styles.logoutText}>Log Out</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.bottomSpacer} />
@@ -716,6 +751,21 @@ const styles = StyleSheet.create({
   },
   bottomSpacer: {
     height: 100,
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: Spacing.md,
+    backgroundColor: `${Colors.critical}10`,
+    borderRadius: BorderRadius.lg,
+    gap: Spacing.sm,
+    marginTop: Spacing.md,
+  },
+  logoutText: {
+    ...Typography.body,
+    color: Colors.critical,
+    fontWeight: '600',
   },
   // Modal Styles
   modalContainer: {
